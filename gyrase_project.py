@@ -79,8 +79,6 @@ for file in files:
     if file.endswith(".wig"):
         wigfiles.append(file)
 
-
-
 xcoord=np.arange(0,4647999)
 
 d1_b = 274750
@@ -111,9 +109,6 @@ def get_value(i, ends):
         j=i
 
     return ends[j]
-
-
-
 
 def return_averaged_line(ends):
     y_coords=[]
@@ -224,7 +219,6 @@ def peak_analysis_check_occucrence_in_samples():
 	total_score=0
 	
 
-
 	for peak_file in list_of_peaks:
 	    print peak_file
 	    for peak in list_of_peaks[peak_file]:
@@ -328,7 +322,6 @@ def peaks_analysis2_create_files_common_peaks():
     outfile.close()
     
 
-
 def curve_fitting(wigfile):
     print wigfile
     pars_com = Parsers()
@@ -356,9 +349,7 @@ def curve_fitting(wigfile):
 	    mean=mean + (get_value(i+window,ends) - get_value(i-window,ends))/(2*window_float)
 	    y_coords.append(mean)
 
-
     return y_coords, ends
-
 
 def plot_averaged_graph_one_sample (ends, line_after_division,line_un, wigfile): 
 
@@ -386,10 +377,6 @@ def plot_averaged_graph_one_sample (ends, line_after_division,line_un, wigfile):
     plt.savefig(path + wigfile[:-4] + '_200kb.png', dpi=100, figsize=(16, 8))
     plt.close()
 
-
-
-
-
 def plot_averaged_graph_two_samples (ends_exp, line_after_division_exp, ends_contr, line_after_division_contr, line_after_division_exp_contr, name ):	
     mask_array=[]
     for k in range(0, len(ends_exp),1):
@@ -407,7 +394,6 @@ def plot_averaged_graph_two_samples (ends_exp, line_after_division_exp, ends_con
     mc_after_division_contr=np.ma.masked_array(return_averaged_line(line_after_division_contr), mask=mask_array)
     mc_after_division_exp_contr=np.ma.masked_array(return_averaged_line(line_after_division_exp_contr), mask=mask_array)
     mc_after_division_exp_contr_not_av=np.ma.masked_array(line_after_division_exp_contr, mask=mask_array)
-
 
     plt.figure(figsize=(16, 8), dpi=100)
     plt.plot(xcoord,mc, '.', label='initial averaged 200kb', color='blue')
@@ -432,8 +418,6 @@ def return_AU_stat(x):
     AU_test75=75*1.36
     AU_test100=100*1.30
 
-
-
     if len(AU_test)>x:
  	quantile=AU_test[int(x)]
     elif x>=20 and x<25:
@@ -451,7 +435,6 @@ def return_AU_stat(x):
     else:
 	quantile=AU_test100
     return quantile
-
 
 def create_gc_plot_fitting_AU(fname, peaks_coord, ends_exp,ends_cont):
     ends=ends_exp
@@ -515,7 +498,6 @@ def create_gc_plot_fitting_AU(fname, peaks_coord, ends_exp,ends_cont):
 
 def create_motif_plot(fname,seqs):
     ############################
-
 
     ############################
 
@@ -914,7 +896,6 @@ def create_motif_plot_two_samples(fname,seqs1,seqs2,seqs3):
 		G_percent.append(G)
 		C_percent.append(C)
 
-
 	    ############################
 
 	    # GC statistics module
@@ -1097,14 +1078,12 @@ def case_7_Mitya():
 	seqs=create_gc_plot_fitting_AU(out_file+"_case_7_Mitya.png", peaks_coord,ends_fitting,un_mu_ends_fitting)
 	all_microcin_seqs=all_microcin_seqs + seqs[1]
 
-
 	cont_file="Cfx_IN_10_mkM_3_ends.wig"
 	ex_file="Microcin_IP_50_mkM_4_ends.wig"
 	out_file="Microcin_IP_50_mkM_4_vs_Un_1"
 	ends_fitting=fitting_divide_case_7_Mitya(ex_file,cont_file,out_file)    
 	seqs=create_gc_plot_fitting_AU(out_file+"_case_7_Mitya.png", peaks_coord,ends_fitting,un_ends_fitting)
 	all_microcin_seqs=all_microcin_seqs + seqs[1]
-
 
 	print 'len all microcin seq ' + str(len(all_microcin_seqs))
 	create_motif_plot("all_microcin.png",all_microcin_seqs)
@@ -1118,7 +1097,6 @@ def case_7_Mitya():
 	ends_fitting=fitting_divide_case_7_Mitya(ex_file,cont_file,out_file)
 	seqs=create_gc_plot_fitting_AU(out_file+"_case_7_Mitya.png", peaks_coord,ends_fitting,un_mu_ends_fitting)
 	all_cfx_seqs=all_cfx_seqs + seqs[1]
-
 
 	cont_file="Cfx_IN_Mu_10_mkM_3_ends.wig"
 	ex_file="Cfx_IP_Mu_10_mkM_3_ends.wig"
@@ -1170,7 +1148,6 @@ def case_7_Mitya():
 	ex_file="Un_IP_Mu_1_ends.wig"
 	out_file="Un_IP_Mu_1_vs_Un_IN_Mu_1"
 
-
 	ends_fitting=fitting_divide(ex_file,cont_file,out_file)
 	#create_gc_plot_fitting(out_file+"av.png", peaks_coord,ends_fitting[2],ends_fitting[3])
 	create_gc_plot_fitting(out_file+"av.png", peaks_coord,ends_fitting[0],ends_fitting[3])
@@ -1187,7 +1164,6 @@ def case_7_Mitya():
 	#create_gc_plot_fitting(out_file+"av.png", peaks_coord,ends_fitting[0])
 	create_gc_plot_fitting(out_file+"fe_UN.png", peaks_coord,ends_fitting[4],ends_fitting[5])
 	'''
-
 
 	for peak_file in peaks_coord:
 	    outfile_list_of_peaks.write(peak_file + "\t" +peaks_coord[peak_file]+"\n")
@@ -1227,20 +1203,17 @@ def fitting_divide_case_6_AC_SW(ex_file,cont_file,un_ex_file, un_cont_file, out_
 		ends_divide_control.append(0)
     
 
-
     
 
     ends_divide_experim=np.divide(exper_ends,un_exper_ends)
     ends_divide_control=np.divide(control_ends,un_control_ends)
     #ends_divide=np.divide(ends_divide_experim,ends_divide_control)
 
-
     plot_averaged_graph_one_sample(experim[1], ends_divide_experim, un_experim[1], ex_file)
     plot_averaged_graph_one_sample(control[1], ends_divide_control,un_control[1], cont_file)    
     #plot_averaged_graph_two_samples(experim[1], ends_divide_experim, control_ends, ends_divide_control, ends_divide, out_file)
 
     return ends_divide_experim, ends_divide_control
-
 
 def case_6_AC_SW():
     
@@ -1256,7 +1229,6 @@ def case_6_AC_SW():
 	un_ex_mu_new_file="Un_IP_Mu_1_new_ends.wig"	    
 	un_cont_file="Un_IN_1_ends.wig"
 	un_ex_file="Un_IN_2_ends.wig"
-
 
 	cont_file="Microcin_IN_Mu_1_ends.wig"
 	ex_file="Microcin_IP_Mu_1_ends.wig"
@@ -1301,7 +1273,6 @@ def case_6_AC_SW():
 	print 'len all microcin seq ' + str(len(all_microcin_seqs))
 	create_motif_plot("all_microcin.png",all_microcin_seqs)
 
-
 	cont_file="Cfx_IN_Mu_1_ends.wig"
 	ex_file="Cfx_IP_Mu_10_mkM_1_ends.wig"
 	out_file="Cfx_IP_Mu_10_mkM_1_vs_Cfx_IN_Mu_1"
@@ -1322,7 +1293,6 @@ def case_6_AC_SW():
 	ends_fitting=fitting_divide_case_6_AC_SW(ex_file,cont_file,un_ex_file,un_cont_file,out_file)
 	seqs=create_gc_plot_fitting_AU(out_file+"_case_6_AC_SW.png", peaks_coord,ends_fitting[0],ends_fitting[1])
 	all_cfx_seqs=all_cfx_seqs + seqs[1]
-
 
 	print 'len all cfx seq ' + str(len(all_cfx_seqs))
 	create_motif_plot("all_cfx.png",all_cfx_seqs)
@@ -1347,7 +1317,6 @@ def case_6_AC_SW():
 	ex_file="Un_IP_Mu_1_ends.wig"
 	out_file="Un_IP_Mu_1_vs_Un_IN_Mu_1"
 
-
 	ends_fitting=fitting_divide(ex_file,cont_file,out_file)
 	#create_gc_plot_fitting(out_file+"av.png", peaks_coord,ends_fitting[2],ends_fitting[3])
 	create_gc_plot_fitting(out_file+"av.png", peaks_coord,ends_fitting[0],ends_fitting[3])
@@ -1365,11 +1334,9 @@ def case_6_AC_SW():
 	create_gc_plot_fitting(out_file+"fe_UN.png", peaks_coord,ends_fitting[4],ends_fitting[5])
 	'''
 
-
 	for peak_file in peaks_coord:
 	    outfile_list_of_peaks.write(peak_file + "\t" +peaks_coord[peak_file]+"\n")
 	outfile_list_of_peaks.close()
-
 
 def atgc_content():
 	a_count=0
@@ -1392,7 +1359,6 @@ def atgc_content():
 	print 'G content ' + str(float(g_count)/len(genomefa))
 	print 'C content ' + str(float(c_count)/len(genomefa))
 	print 'GC content ' + str(float(c_count+g_count)/len(genomefa))
-
 
 def venn_diagram():
     peaks_coords=open(path+ "List_of_peaks.txt", 'r')
@@ -1793,7 +1759,6 @@ def motif_analysis():
         elif "Cfx" in sample:
             all_cfx_seqs = all_cfx_seqs + seqs
 
-
     common_micro=[]
     common_cfx=[]
     for p in peaks_micro_1:
@@ -1843,7 +1808,6 @@ def motif_analysis():
             ls[k]= soft_copy[l]
             l = l + 1
             all_seqs[j]="".join(ls)
-
 
     create_motif_plot("all_seq_edt.png", all_seqs)
     #create_motif_plot_two_samples("mircocin_cfx.png", all_microcin_seqs, all_cfx_seqs)
@@ -2022,8 +1986,6 @@ def september_calculate_correlation():
 	    cfx = peaks		
 	if "OXO" in sample:
 	    oxo = peaks		
-
-
 
     for peak in micro_cfx_oxo:
 	tmp=micro_cfx_oxo[peak]
@@ -2273,7 +2235,6 @@ def motif_analysis_random():
             ls[k]= soft_copy[l]
             l = l + 1
             all_seqs[j]="".join(ls)
-
 
     #create_motif_plot("all_seq_edt.png", all_seqs)
     #create_motif_plot_two_samples("mircocin_cfx.png", all_microcin_seqs, all_cfx_seqs)
@@ -2780,7 +2741,6 @@ def parse_list_of_sites_calculate(genome, infile,outfile):
     sites_coords.close()
     outfile.close()
 
-
 def parse_list_of_sites_left_calculate(genome, infile,outfile):
     #sites_coords=open(path+ "List_of_sites_th_0_all_peaks_2_calculate.txt", 'r')
     #outfile= open(path + "List_of_sites_th_0_all_peaks_2_calculate_edt.txt".decode("utf-8"), 'w+')
@@ -3004,8 +2964,6 @@ def test_motif_search():
     search_result=pssm.search(test_seq)
     for position, score in search_result:
 	print("%d     %5.3f" % (position, score))    
-
-
 
 def calculate_counts_for_TU_plots(sample, peaks,genes):
     quarter=0
@@ -3264,8 +3222,6 @@ def calculate_counts_for_TU_plots_wide_intergenic_regions(sample, peaks,genes,fl
     #print count_pos_or 
     #print count_neg_or
     return upstream_count,gene_count_1,gene_count_2,gene_count_3,gene_count_4,downstream_count
-
-
 
 def september_get_nearby_genes():
     genes_file="/data/Gyrase/Pipe/Escherichia_coli_K_12_w3110_Mu_genes_annotation.gff"
@@ -3809,7 +3765,6 @@ def parse_operons_file(file_name):
     operons_file.close()
     return operons
 
-
 def get_nearby_genes():
     genes_file="/data/Gyrase/Pipe/Escherichia_coli_K_12_w3110_Mu_genes_annotation.gff"
     operons_file="/data/Gyrase/Pipe/K12_w3110_operons_only.gff"
@@ -3913,7 +3868,6 @@ def intersect_lists_of_peaks():
 	
 	
 
-
 def intersect_lists_of_peaks_and_sites():
     #f_peaks=open("/data/Gyrase/Pipe/Fragments_ends/Data_second_mapping/Mitya/_SW_new/List_of_peaks.txt", 'r')
     f_peaks=open(path + "List_of_peaks_score_2.txt", 'r')
@@ -3969,8 +3923,6 @@ def intersect_lists_of_peaks_and_sites():
     print " peaks " + str (len(all_peaks)) + " overlap " + str(overlap_count) + " sites " + str (len(sites))  
 	
 
-
-
 def rrna_operons():
     #f_peaks=open("/data/Gyrase/Pipe/Fragments_ends/Data_second_mapping/case_6_AC_SW_1/List_of_peaks.txt", 'r')
     f_peaks=open("/data/Gyrase/Pipe/Fragments_ends/Data_second_mapping/List_of_peaks.txt", 'r')
@@ -3979,7 +3931,6 @@ def rrna_operons():
 
     fig=plt.figure(figsize=(20,3))  
     f,axarr = plt.subplots(10,1)
-
 
     peaks_dic={}
     sites={}
@@ -4568,7 +4519,6 @@ def create_score_file_for_peaks(prefix):
             continue
             #return
 
-
 	all_seqs=seqs
 	
 	hard_copy = ['A'] * (int(background['A']* len (all_seqs)) +3) + ['C'] * (int(background['C']* len (all_seqs))) +  ['G'] * (int(background['G']* len (all_seqs))) + ['T'] * (int(background['T']* len (all_seqs)))
@@ -4888,11 +4838,6 @@ def pitctures_for_presentation():
     plt.close() 
     '''    
 
-
-
-
-
-
 def combine_bed_graph():
     f1=open(u"/data/Gyrase/Pipe/Fragments_ends/Transcription/GSM2516397_RNAseq_3end_Cyto_1.bedGraph", 'r')
     f2=open(u"/data/Gyrase/Pipe/Fragments_ends/Transcription/GSM2516400_RNAseq_3end_Cyto_2.bedGraph", 'r')
@@ -5108,19 +5053,6 @@ def check_transcription_level():
     o2.close()
     
     
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def get_genes_for_transcription():
     st=open(path + "Summary_table_edt.txt".decode("utf-8"), 'r')
@@ -5349,7 +5281,6 @@ def get_genes_for_transcription():
 	    expr_in.append(np.mean(expr))
 	    motif_score_in.append(float(pks[peak].split('\t')[1]))
 
-
 	expr=[]
 	for line in pks_expression[peak][0]:
 	    line=line.split("\t")
@@ -5357,7 +5288,6 @@ def get_genes_for_transcription():
 	if len(expr) > 0:
 	    expr_up.append(np.mean(expr))
 	    motif_score_up.append(float(pks[peak].split('\t')[1]))
-
 
 	expr=[]
 	for line in pks_expression[peak][2]:
@@ -5367,21 +5297,10 @@ def get_genes_for_transcription():
 	    expr_down.append(np.mean(expr))
 	    motif_score_down.append(float(pks[peak].split('\t')[1]))
 
-
     print pearsonr(motif_score_in,expr_in)
     print pearsonr(motif_score_up, expr_up)
     print pearsonr(motif_score_down, expr_down)
     print pearsonr(height_mean, expr_down)
-
-
-
-
-
-
-
-
-
-
 
 def september_get_genes_for_transcription():
     st=open(path + "Summary_table_edt.txt".decode("utf-8"), 'r')
@@ -5852,7 +5771,6 @@ def september_check_closely_distributed_peaks():
 #case_2_FE_FE()
 #case_3_FE_SW()
 
-
 #outfile_list_of_peaks= open(path + "List_of_peaks.txt".decode("utf-8"), 'w+')
 
 #case_6_AC_SW()
@@ -5865,7 +5783,6 @@ def september_check_closely_distributed_peaks():
 #site_distribution()
 #peaks_analysis2()
 #TU()
-
 
 #outfile_list_of_peaks= open(path + "List_of_peaks.txt".decode("utf-8"), 'w+')
 #case_7_Mitya()
@@ -5904,7 +5821,6 @@ def september_check_closely_distributed_peaks():
 #motif_analysis_random()
 #intersect_lists_of_peaks_and_sites()
 
-
 #filter_sites(6.88)
 #parse_list_of_sites()
 #site_distribution()
@@ -5919,7 +5835,6 @@ def september_check_closely_distributed_peaks():
 #intersect_lists_of_peaks_and_sites()
 #rrna_operons()
 #create_file()
-
 
 #parse_list_of_sites()
 #ROC_curves()
@@ -5956,7 +5871,6 @@ parse_list_of_sites_calculate_rc(pMu,"List_of_sites_pMu_calculate_rc.txt","List_
 #create_score_file_for_peaks("3")
 #create_score_file_for_peaks_different_motif()
 #create_summary_table()
-
 
 #september_transcription_of_operons()
 #september_get_genes_for_transcription()
